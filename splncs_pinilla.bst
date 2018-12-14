@@ -1,4 +1,4 @@
-%% BibTeX bibliography style `splncs03'
+%% BibTeX bibliography style `splncs_pinilla'
 %%
 %% BibTeX bibliography style for use with numbered references in
 %% Springer Verlag's "Lecture Notes in Computer Science" series.
@@ -9,10 +9,19 @@
 %% Use \documentclass{llncs} and \bibliographystyle{splncs03}, and cite
 %% a reference with (e.g.) \cite{smith77} to get a "[1]" in the text.
 %%
+%% File updated by Jose Pinilla
+%% Department of Electrical and Computer Engineering
+%% University of British Columbia, Vancouver, B.C, Canada
+%%
+%% CHANGES (with respect to splncs04.bst):
+%% - Limit author names to 3 if list is longer than 5
+%% - Added eprint
+%%
+%% ================================================================================================
+%%
 %% This file comes to you courtesy of Maurizio "Titto" Patrignani of
 %% Dipartimento di Informatica e Automazione Universita' Roma Tre
 %%
-%% ================================================================================================
 %% This was file `titto-lncs-02.bst' produced on Wed Apr 1, 2009
 %% Edited by hand by titto based on `titto-lncs-01.bst' (see below)
 %%
@@ -75,6 +84,7 @@ ENTRY
     booktitle
     chapter
     doi
+    eprint
     edition
     editor
     eid
@@ -167,8 +177,6 @@ FUNCTION {new.sentence}
 FUNCTION {add.blank}
 {  " " * before.all 'output.state :=
 }
-
-
 FUNCTION {add.colon}
 { duplicate$ empty$
     'skip$
@@ -453,6 +461,14 @@ FUNCTION {format.doi} % added in splncs04.bst
   if$
 }
 
+FUNCTION {format.eprint} % added by Jose Pinilla
+{ eprint empty$
+	{ "" }
+    { after.block 'output.state :=
+      "\eprint{" eprint * "}" *}
+   if$
+}
+
 INTEGERS { nameptr namesleft numnames }
 
 
@@ -473,7 +489,15 @@ FUNCTION {format.names}
       bibinfo bibinfo.check
       't :=
       nameptr #1 >
-        {
+         {							% Lines inserted to produce et al
+          nameptr #3				% after three author names if
+          #1 + =					% publication has more than 5
+          numnames #5				% authors.
+          > and						%
+            { "others" 't :=		%	
+              #1 'namesleft := }	%	
+            'skip$					% By: Jose Pinilla	
+          if$						%	
           namesleft #1 >
             { ", " * t * }
             {
@@ -1023,8 +1047,20 @@ FUNCTION {article}
     }
   if$
 %  new.block
-  format.doi output
-  format.url output
+  url empty$
+    {
+    doi empty$
+      {
+      eprint empty$
+        { }
+        { format.eprint output }
+      if$
+      }
+      { format.doi output }
+    if$
+    }
+    { format.url output }
+  if$
 %  new.block
   format.note output
   fin.entry
@@ -1060,8 +1096,20 @@ FUNCTION {book}
   format.edition output
   format.date "year" output.check
 %  new.block
-  format.doi output
-  format.url output
+  url empty$
+    {
+    doi empty$
+      {
+      eprint empty$
+        { }
+        { format.eprint output }
+      if$
+      }
+      { format.doi output }
+    if$
+    }
+    { format.url output }
+  if$
 %  new.block
   format.note output
   fin.entry
@@ -1077,8 +1125,20 @@ FUNCTION {booklet}
   address "address" bibinfo.check output
   format.date output
 %  new.block
-  format.doi output
-  format.url output
+  url empty$
+    {
+    doi empty$
+      {
+      eprint empty$
+        { }
+        { format.eprint output }
+      if$
+      }
+      { format.doi output }
+    if$
+    }
+    { format.url output }
+  if$
 %  new.block
   format.note output
   fin.entry
@@ -1118,8 +1178,20 @@ FUNCTION {inbook}
   format.edition output
   format.date "year" output.check
 %  new.block
-  format.doi output
-  format.url output
+  url empty$
+    {
+    doi empty$
+      {
+      eprint empty$
+        { }
+        { format.eprint output }
+      if$
+      }
+      { format.doi output }
+    if$
+    }
+    { format.url output }
+  if$
 %  new.block
   format.note output
   fin.entry
@@ -1147,8 +1219,20 @@ FUNCTION {incollection}
     }
   if$
 %  new.block
-  format.doi output
-  format.url output
+  url empty$
+    {
+    doi empty$
+      {
+      eprint empty$
+        { }
+        { format.eprint output }
+      if$
+      }
+      { format.doi output }
+    if$
+    }
+    { format.url output }
+  if$
 %  new.block
   format.note output
   fin.entry
@@ -1180,8 +1264,20 @@ FUNCTION {inproceedings}
     }
   if$
 %  new.block
-  format.doi output
-  format.url output
+  url empty$
+    {
+    doi empty$
+      {
+      eprint empty$
+        { }
+        { format.eprint output }
+      if$
+      }
+      { format.doi output }
+    if$
+    }
+    { format.url output }
+  if$
 %  new.block
   format.note output
   fin.entry
@@ -1220,8 +1316,20 @@ FUNCTION {manual}
   format.edition output
   format.date output
 %  new.block
-  format.doi output
-  format.url output
+  url empty$
+    {
+    doi empty$
+      {
+      eprint empty$
+        { }
+        { format.eprint output }
+      if$
+      }
+      { format.doi output }
+    if$
+    }
+    { format.url output }
+  if$
 %  new.block
   format.note output
   fin.entry
@@ -1240,8 +1348,20 @@ FUNCTION {mastersthesis}
   address "address" bibinfo.check output
   format.date "year" output.check
 %  new.block
-  format.doi output
-  format.url output
+  url empty$
+    {
+    doi empty$
+      {
+      eprint empty$
+        { }
+        { format.eprint output }
+      if$
+      }
+      { format.doi output }
+    if$
+    }
+    { format.url output }
+  if$
 %  new.block
   format.note output
   fin.entry
@@ -1257,8 +1377,20 @@ FUNCTION {misc}
   howpublished "howpublished" bibinfo.check output
   format.date output
 %  new.block
-  format.doi output
-  format.url output
+  url empty$
+    {
+    doi empty$
+      {
+      eprint empty$
+        { }
+        { format.eprint output }
+      if$
+      }
+      { format.doi output }
+    if$
+    }
+    { format.url output }
+  if$
 %  new.block
   format.note output
   fin.entry
@@ -1277,8 +1409,20 @@ FUNCTION {phdthesis}
   address "address" bibinfo.check output
   format.date "year" output.check
 %  new.block
-  format.doi output
-  format.url output
+  url empty$
+    {
+    doi empty$
+      {
+      eprint empty$
+        { }
+        { format.eprint output }
+      if$
+      }
+      { format.doi output }
+    if$
+    }
+    { format.url output }
+  if$
 %  new.block
   format.note output
   fin.entry
@@ -1321,8 +1465,20 @@ FUNCTION {proceedings}
   if$
       format.date "year" output.check
 %  new.block
-  format.doi output
-  format.url output
+  url empty$
+    {
+    doi empty$
+      {
+      eprint empty$
+        { }
+        { format.eprint output }
+      if$
+      }
+      { format.doi output }
+    if$
+    }
+    { format.url output }
+  if$
 %  new.block
   format.note output
   fin.entry
@@ -1341,8 +1497,20 @@ FUNCTION {techreport}
   address "address" bibinfo.check output
   format.date "year" output.check
 %  new.block
-  format.doi output
-  format.url output
+  url empty$
+    {
+    doi empty$
+      {
+      eprint empty$
+        { }
+        { format.eprint output }
+      if$
+      }
+      { format.doi output }
+    if$
+    }
+    { format.url output }
+  if$
 %  new.block
   format.note output
   fin.entry
@@ -1533,6 +1701,8 @@ FUNCTION {begin.bib}
   "\providecommand{\urlprefix}{URL }"
   write$ newline$
   "\providecommand{\doi}[1]{https://doi.org/#1}"
+  write$ newline$
+  "\providecommand{\eprint}[1]{http://arxiv.org/abs/#1}" % added by Jose Pinilla
   write$ newline$
 }
 EXECUTE {begin.bib}
