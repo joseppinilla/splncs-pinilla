@@ -1,5 +1,5 @@
 # splncs-pinilla
-BibTeX Style for Springer Computer Science Proceedings
+BibTeX Style for [Springer Computer Science Proceedings](https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines)
 
 Changes:
 
