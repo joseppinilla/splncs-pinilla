@@ -9,3 +9,18 @@ Changes:
 
 
 Springer's guidelines and technical instructions for the preparation of contributions to be published in one of the following series or subseries: Lecture Notes in Computer Science (LNCS), Lecture Notes in Artificial Intelligence (LNAI), Lecture Notes in Bioinformatics (LNBI), LNCS Transactions, Lecture Notes in Business Information Processing (LNBIP), Communications in Computer and Information Science (CCIS), Lecture Notes of the Institute for Computer Sciences, Social Informatics and Telecommunications Engineering (LNICST), and IFIP Advances in Information and Communication Technology (IFIP AICT), formerly known as the IFIP Series.
+
+``` tex
+\documentclass[runningheads]{llncs}
+\begin{document}
+
+% ...
+\cite{Entry2018}
+% ...
+
+% ---- Bibliography ----
+\bibliographystyle{splncs_pinilla}
+\bibliography{bib}
+
+\end{document}
+```
